@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_061431) do
     t.string "translation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "category"
+    t.integer "category", default: 0
   end
 
 end

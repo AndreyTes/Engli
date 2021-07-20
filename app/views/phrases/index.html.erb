@@ -5,11 +5,11 @@
     <th>Id</th>
     <th>Phrase</th>
     <th>Translation</th>
+    <th>Category</th>
   </tr>
 
   <% @phrases.each do |phrase| %>
     <%= render phrase%>
-   
-  <% end %>
-
+   <% end %>
 </table>
+<%= will_paginate @phrases%>

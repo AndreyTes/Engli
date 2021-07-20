@@ -22,6 +22,10 @@
         <%= f.label :translation, { class: "form-label" } %>
         <%= f.text_field :translation, { class: "form-control" } %>
       </div>
+      <div class = 'mb-3'>
+        <%= f.label :category, { class: "form-label" } %>
+        <%= f.select :category, Phrase.categories.keys ,{},{ class: "form-control" } %>
+      </div>
       <div>
       <%= f.submit "Submit", class: "btn btn-primary" %>
       </div>

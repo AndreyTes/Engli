@@ -1,6 +1,6 @@
 class PhrasesController < ApplicationController
   def index
-    @phrases = Phrase.all
+    @phrases = Phrase.paginate(page: params[:page],per_page: 10)
   end
 
   def new
@@ -21,7 +21,7 @@ class PhrasesController < ApplicationController
 private
   
   def  phrase_params
-    params.require(:phrase).permit(:phrase, :translation)
+    params.require(:phrase).permit(:phrase, :translation, :category)
   end  
   
 end
