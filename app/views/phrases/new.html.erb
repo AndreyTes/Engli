@@ -1,0 +1,32 @@
+<h1>Create Phrase</h1>
+<%= form_for(@phrase) do |f| %>
+  <%if @phrase.errors.any? %>
+    <div id = 'error explanation'>
+      <h2><%= pluralize(@phrase.errors.count, 'error') %> prohibited this phrase from being saved:</h2>
+  
+      <ul>
+      <% @phrase.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <%end%>   
+      </ul>
+    </div>
+  <% end %>
+<div class="card">
+  <div class="card-body">
+    
+      <div class = 'mb-3'>
+        <%= f.label :phrase, { class: "form-label"}  %>
+        <%= f.text_field :phrase, { class: "form-control" } %>
+      </div>
+      <div class = 'mb-3'>
+        <%= f.label :translation, { class: "form-label" } %>
+        <%= f.text_field :translation, { class: "form-control" } %>
+      </div>
+      <div>
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+      </div>
+    
+  </div>
+</div>  
+<% end %>  
+
