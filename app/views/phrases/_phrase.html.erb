@@ -3,4 +3,16 @@
   <td><%= phrase.phrase %></td>
   <td><%= phrase.translation %></td>
   <td><%= phrase.category %></td>
- </tr>
+    <% if render_in_phrase%>
+      <td><%= link_to phrase.user&.username, user_path(phrase.user), {class: "nav-link active"} %></td>
+    <%else%>
+    <% if phrase.author? current_user %>    
+      <td>
+        <%= link_to 'Edit', edit_phrase_path(phrase) %>
+        <%= link_to 'Delete', phrase, method: :delete , data: { confirm: 'Are you sure?' } %>    
+      </td>
+    <%end%>
+    <%end%>
+
+    
+</tr>

@@ -6,10 +6,13 @@
     <th>Phrase</th>
     <th>Translation</th>
     <th>Category</th>
+    <th>Authtor</th>
+
   </tr>
 
   <% @phrases.each do |phrase| %>
-    <%= render phrase%>
+    <%= render phrase, render_in_phrase: true %>
    <% end %>
 </table>
 <%= will_paginate @phrases%>
+<button><%= link_to "Add new phrase", new_phrase_path, {class: "nav-link active"} %></button>

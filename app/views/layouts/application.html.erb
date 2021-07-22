@@ -4,6 +4,7 @@
     <title>Engli</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
+    <%= csrf_meta_tag %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -17,8 +18,8 @@
          <% flash.each do |key, value| %>
            <div class="alert alert-<%= key %>"><%= value %></div>
          <% end %>
- 
-        <%= yield %>
+
+         <%= yield %>
       </div> 
     </div>
   </body>
