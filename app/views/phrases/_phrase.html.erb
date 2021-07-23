@@ -1,6 +1,6 @@
 <tr>
   <td><%= phrase.id %></td>
-  <td><%= phrase.phrase %></td>
+  <td><%= link_to phrase.phrase , phrase_path(phrase)  %></td>
   <td><%= phrase.translation %></td>
   <td><%= phrase.category %></td>
     <% if render_in_phrase%>

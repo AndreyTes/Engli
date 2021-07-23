@@ -1,15 +1,21 @@
 class PhrasesController < ApplicationController
-  before_action :phrase , only: [:edit, :update, :destroy]
-  before_action :check_user!, only: [:edit, :update, :destroy]
+  before_action :phrase , only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:edit, :update, :destroy]
   
   def index
     @phrases = Phrase.includes(:user).paginate(page: params[:page],per_page: 10)
   end
     
   def new
-    @phrase = Phrase.new()
+    @phrase = Phrase.new
+    @phrase.examples.build(user_id: current_user.id)
   end
   
+  def show
+    @examples = @phrase.examples.includes(:user).paginate(page: params[:page],per_page: 10)
+    @example = @phrase.examples.build(user_id: current_user.id)
+  end
+
   def edit
   end
  
@@ -43,16 +49,15 @@ class PhrasesController < ApplicationController
   private
   
   def  phrase_params
-    params.require(:phrase).permit(:phrase, :translation, :category )
+    params.require(:phrase).permit(:phrase, :translation, :category, examples_attributes: [ :example, :user_id, :_destroy ] )
   end  
   
   def phrase
-    @phrase = Phrase.find_by(id: params[:id])
+    @phrase = Phrase.friendly.find(params[:id])
   end
   
-  def check_user!
+  def check_user
     unless @phrase.author? current_user
-
       flash[:danger] = 'You don\'t author of phrase, go away!'
       redirect_to(@phrase.user)
     end

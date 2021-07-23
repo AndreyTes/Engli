@@ -1,0 +1,50 @@
+<div class="container-fluid px-4">
+  <div class="row gy-5">
+    <div class="col-md-6 p-3">
+      <h4> Phrase: <%= @phrase.phrase %> </h4>
+      <h4> Translation: <%= @phrase.translation %> </h4>
+      <h4> Category: <%= @phrase.category %> </h4>
+    </div>
+    <div class="col-md-6 p-3">
+      <h4> Author: <%= @phrase.user.username %> </h4>
+      <h4> Created At: <%= date_formatter(@phrase.created_at) %> </h4>
+      <h4> Updated At: <%= date_formatter(@phrase.updated_at) %> </h4>
+    </div>
+  </div>
+  <div class="row gy-5">
+   <div class="col-md-12 p-3">
+      <%= form_for @example, url:  phrase_examples_path(@phrase) do |f| %>
+        <div>
+          <%= f.label :example %>
+          <br>
+          <%= f.text_field :example, { class: "form-control"}  %>
+          <%= f.hidden_field :user_id, { class: "form-control" } %>
+        </div>
+        <br>  
+        <div>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>  
+    </div>
+  </div>
+  <br>
+  <hr>
+  <div class="row ">
+    <div class="col-md-12 p-3">
+    <h2>Examples</h2>
+      <table class="table">
+        <tr>
+          <th>Example</th>
+          <th>Author</th>
+          <th>Created At</th>
+          <th></th>
+        </tr>
+
+        <% @examples.each do |example| %>
+          <%= render example %>
+        <% end %>
+      </table>
+      <%= will_paginate @examples %>
+    </div>  
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<tr>
+  <td><%= example.example %></td>
+  <td><%= example.user.username %></td>
+  <td><%= date_formatter(example.created_at) %></td>
+  <% if example.author?(current_user) || example.phrase.author?(current_user)%>
+  <td><%= link_to 'Delete', phrase_example_path(example.phrase, example) , method: :delete %></td> 
+  <% end %>
+</tr>
