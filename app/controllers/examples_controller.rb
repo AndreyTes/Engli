@@ -1,5 +1,7 @@
 class ExamplesController < ApplicationController
   before_action :phrase
+  before_action :check_user, only: [:destroy]
+  before_action :self_like, only: [:vote]
   
   def create
     @example = @phrase.examples.new(example_params)
@@ -17,6 +19,18 @@ class ExamplesController < ApplicationController
     redirect_to phrase_path(@phrase)
   end
 
+  def vote
+    @example = @phrase.examples.find(params[:example_id])
+    if params[:vote] == 'up'
+      @example.liked_by current_user
+      redirect_to phrase_path(@phrase)
+    else
+      @example.downvote_from current_user
+      redirect_to phrase_path(@phrase)
+    end
+    
+  end
+
 private
 
   def example_params
@@ -29,8 +43,15 @@ private
 
   def check_user
     unless @phrase.author? current_user
-      flash[:danger] = 'You don\'t author of example, go away!'
+      flash[:danger] = 'You dont author of example'
       redirect_to(@phrase.user)
     end
   end
+
+  def self_like
+    if @phrase.examples.find(params[:example_id]).user == current_user
+      flash[:danger] = 'You cant like/dislike yourself example'
+      redirect_to phrase_path(@phrase)
+    end
+  end  
 end

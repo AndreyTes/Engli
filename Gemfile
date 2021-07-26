@@ -27,6 +27,8 @@ gem 'will_paginate'
 gem 'devise'
 gem 'friendly_id'
 gem 'acts_as_votable'
+gem 'bootstrap-sass'
+gem 'sassc-rails'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

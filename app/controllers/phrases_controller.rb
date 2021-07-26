@@ -1,6 +1,7 @@
 class PhrasesController < ApplicationController
-  before_action :phrase , only: [:show, :edit, :update, :destroy]
+  before_action :phrase , only: [:show, :edit, :update, :destroy, :vote]
   before_action :check_user, only: [:edit, :update, :destroy]
+  before_action :self_like, only: [:vote]
   
   def index
     @phrases = Phrase.includes(:user).paginate(page: params[:page],per_page: 10)
@@ -42,8 +43,19 @@ class PhrasesController < ApplicationController
 
   def destroy
     @phrase.destroy
-    flash[:notice] = 'Phrase has been deleted!'
+    flash[:notice] = 'Phrase has been deleted'
     redirect_to user_path(@phrase.user)
+  end
+
+  def vote
+    if params[:vote] == 'up'
+      @phrase.liked_by current_user
+      redirect_to(:root_path)
+    else
+      @phrase.downvote_from current_user
+      redirect_to(:root_path)
+    end
+    
   end
 
   private
@@ -58,9 +70,16 @@ class PhrasesController < ApplicationController
   
   def check_user
     unless @phrase.author? current_user
-      flash[:danger] = 'You don\'t author of phrase, go away!'
+      flash[:danger] = 'You dont author of phrase'
       redirect_to(@phrase.user)
     end
   end
+
+  def self_like
+    if Phrase.friendly.find(params[:id]).user == current_user
+      flash[:danger] = 'You cant like/dislike yourself phrase'
+      redirect_to(:root_path)
+    end
+  end  
   
 end

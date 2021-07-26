@@ -13,4 +13,5 @@ class Phrase < ApplicationRecord
   belongs_to :user
   has_many :examples, dependent: :destroy
   accepts_nested_attributes_for :examples, allow_destroy: true
+  acts_as_votable
 end
