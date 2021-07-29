@@ -55,7 +55,15 @@ class PhrasesController < ApplicationController
       @phrase.downvote_from current_user
       redirect_to(:root_path)
     end
-    
+
+    if @phrase.vote_registered?
+      @phrase.calc_carma(params[:vote], current_user)
+      message = params[:vote] == 'up' ? 'Liked your phrase' : 'Disliked your phrase'
+      @phrase.create_activity key: message, owner: current_user, recipient: @phrase.user
+      flash[:notice] = 'Thanks for your vote'
+    else
+      flash[:danger] = 'You already voted that post'
+    end
   end
 
   private
@@ -81,5 +89,4 @@ class PhrasesController < ApplicationController
       redirect_to(:root_path)
     end
   end  
-  
 end

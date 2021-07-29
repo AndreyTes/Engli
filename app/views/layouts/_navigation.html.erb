@@ -12,25 +12,28 @@
             <%= link_to "Users", users_path, {class: "nav-link active"} %>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              User
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><%= link_to "View Profile", user_path(current_user), {class: "dropdown-item"} %></li>
-              <li><%= link_to "Edit Profile", edit_user_registration_path, {class: "dropdown-item"} %></li>
-              <li class = "dropdown-item"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
-            </ul>
-          </li>
-          <% else %>
-           <li class="nav-item">
-              <%= link_to "Sign In", new_user_session_path, {class: "nav-link active"} %>
-           </li>
-           <li class="nav-item">
-              <%= link_to "Sign Up", new_user_registration_path, {class: "nav-link active"} %>
-           </li>
-          <% end %> 
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><%= link_to "View Profile", user_path(current_user), {class: "dropdown-item"} %></li>
+                <li><%= link_to "Edit Profile", edit_user_registration_path, {class: "dropdown-item"} %></li>
+                <li class = "dropdown-item"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+              </ul>
+            </li>
+          <li class="notification-nav">
+            <% if current_user.has_new_notifications? %>
+              <span class="glyphicon glyphicon-heart navigation-notification-item"></span>
+            <% end %>
+            <%= link_to "Notifications", read_all_notifications_path, method: :put %>
+          </li>  
+            <% else %>
+              <li class="nav-item">
+                  <%= link_to "Sign In", new_user_session_path, {class: "nav-link active"} %>
+              </li>
+              <li class="nav-item">
+                  <%= link_to "Sign Up", new_user_registration_path, {class: "nav-link active"} %>
+              </li>
+            <% end %> 
         </ul>
-       
       </div>
     </div>
   </nav>

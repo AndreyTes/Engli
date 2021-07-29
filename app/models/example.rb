@@ -1,5 +1,8 @@
 class Example < ApplicationRecord
   include SharedMethods
+  include PublicActivity::Model
+  tracked
+  
   belongs_to :phrase
   belongs_to :user
   validates :example, presence: true

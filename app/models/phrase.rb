@@ -1,6 +1,9 @@
 class Phrase < ApplicationRecord
   include SharedMethods
   extend FriendlyId
+  include PublicActivity::Model
+  tracked 
+
   friendly_id :phrase, use: :slugged
   
   validates :phrase, presence: true, uniqueness: true

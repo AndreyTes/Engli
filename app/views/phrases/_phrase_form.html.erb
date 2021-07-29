@@ -12,7 +12,6 @@
   <% end %>
 <div class="card">
   <div class="card-body">
-    
       <div class = 'mb-3'>
         <%= f.label :phrase, { class: "form-label"}  %>
         <%= f.text_field :phrase, { class: "form-control" } %>
@@ -25,7 +24,6 @@
         <%= f.label :category, { class: "form-label" } %>
         <%= f.select :category, Phrase.categories.keys ,{},{ class: "form-control" } %>
       </div>
-
       <%= f.fields_for :examples do |example| %>
         <div class = 'mb-3'>
           <%= example.label "Example", { class: "form-label" } %>
@@ -33,11 +31,9 @@
           <%= example.hidden_field :user_id,{ class: "form-control" } %>
         </div>
       <% end %>  
-      
       <div>
       <%= f.submit "Submit", class: "btn btn-primary" %>
       </div>
-    
   </div>
 </div>  
 <% end %>  
