@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   end
 
   def read_all
-    PublicActivity::Activity.where(recipient_id: current_user.id).update_all({readed: true})
+    PublicActivity::Activity.where(recipient_id: current_user.id).update_all(readed: true)
     redirect_to notifications_path
   end
 end

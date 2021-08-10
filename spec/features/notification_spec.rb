@@ -35,14 +35,14 @@ RSpec.feature "Notifications", type: :feature do
       let(:phrase) { create(:phrase) }
       let(:example) { create(:example, phrase: phrase) }
       it "up"  do
-      phrase
-      example
-      visit phrase_path(phrase)
-      click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'up'))
-      expect(page).to have_content('Thanks for your vote')
-      sign_in example.user
-      visit notifications_path
-      expect(page).to have_content('Liked your example')
+        phrase
+        example
+        visit phrase_path(phrase)
+        click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'up'))
+        expect(page).to have_content('Thanks for your vote')
+        sign_in example.user
+        visit notifications_path
+        expect(page).to have_content('Liked your example')
       end
       it "down"  do
         phrase

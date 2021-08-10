@@ -45,7 +45,7 @@
           <%= render example %>
         <% end %>
       </table>
-      <%= will_paginate @examples %>
+      <%= will_paginate @examples, renderer: BootstrapPagination::Rails %>
     </div>  
   </div>
 </div>

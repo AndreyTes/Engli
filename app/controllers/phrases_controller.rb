@@ -1,19 +1,18 @@
 class PhrasesController < ApplicationController
-  before_action :phrase , only: [:show, :edit, :update, :destroy, :vote]
   before_action :self_like, only: [:vote]
   
   def index
-    @phrases = Phrase.includes(:user).paginate(page: params[:page],per_page: 10)
+    @phrases = Phrase.includes(:user).paginate(page: params[:page])
   end
     
   def new
     @phrase = Phrase.new
-    @phrase.examples.build(user_id: current_user.id)
+    @phrase.examples.new(user_id: current_user.id)
   end
   
   def show
-    @examples = @phrase.examples.includes(:user).paginate(page: params[:page],per_page: 10)
-    @example = @phrase.examples.build(user_id: current_user.id)
+    @examples = phrase.examples.includes(:user).paginate(page: params[:page])
+    @example = phrase.examples.build(user_id: current_user.id)
   end
 
   def edit
@@ -21,17 +20,17 @@ class PhrasesController < ApplicationController
  
   def create
     @phrase = current_user.phrases.new(phrase_params)
-      if @phrase.save
-        flash[:notice] = 'Phrase has been created'
-        redirect_to :root_path
-      else   
-        flash[:danger] = 'Phrase can`t be created'
-        render :new 
-      end 
+    if @phrase.save
+      flash[:notice] = 'Phrase has been created'
+      redirect_to :root_path
+    else   
+      flash[:danger] = 'Phrase can`t be created'
+      render :new 
+    end 
   end
   
   def update
-    if @phrase.update(phrase_params)
+    if phrase.update(phrase_params)
       flash[:notice] = 'Phrase has been updated!'
       redirect_to user_path(@phrase.user)
     else
@@ -41,7 +40,7 @@ class PhrasesController < ApplicationController
   end
 
   def destroy
-    @phrase.destroy
+    phrase.destroy
     flash[:notice] = 'Phrase has been deleted'
     redirect_to user_path(@phrase.user)
   end
@@ -49,11 +48,10 @@ class PhrasesController < ApplicationController
   def vote
     if params[:vote] == 'up'
       @phrase.liked_by current_user
-      redirect_to(:root_path)
     else
       @phrase.downvote_from current_user
-      redirect_to(:root_path)
     end
+    redirect_to(:root_path)
 
     if @phrase.vote_registered?
       @phrase.calc_carma(params[:vote], current_user)
@@ -67,16 +65,16 @@ class PhrasesController < ApplicationController
 
   private
   
-  def  phrase_params
-    params.require(:phrase).permit(:phrase, :translation, :category, examples_attributes: [ :example, :user_id, :_destroy ] )
+  def phrase_params
+    params.require(:phrase).permit(:phrase, :translation, :category, examples_attributes: [ :example, :user_id, :_destroy ])
   end  
   
   def phrase
-    @phrase = Phrase.friendly.find(params[:id])
+    @phrase ||= Phrase.friendly.find(params[:id])
   end
   
   def self_like
-    if Phrase.friendly.find(params[:id]).user == current_user
+    if phrase.user == current_user
       flash[:danger] = 'You cant like/dislike yourself phrase'
       redirect_to(:root_path)
     end

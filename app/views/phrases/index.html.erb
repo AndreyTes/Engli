@@ -14,5 +14,5 @@
     <%= render phrase, render_in_phrase: true %>
    <% end %>
 </table>
-<%= will_paginate @phrases%>
+<%= will_paginate @phrases, renderer: BootstrapPagination::Rails%>
 <button><%= link_to "Add new phrase", new_phrase_path, {class: "nav-link active"} %></button>

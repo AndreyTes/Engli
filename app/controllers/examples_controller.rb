@@ -1,9 +1,8 @@
 class ExamplesController < ApplicationController
-  before_action :phrase
   before_action :self_like, only: [:vote]
   
   def create
-    @example = @phrase.examples.new(example_params)
+    @example = phrase.examples.new(example_params)
     if @example.save
       flash[:notice] = 'Example has been created'
     else
@@ -13,20 +12,19 @@ class ExamplesController < ApplicationController
   end
   
   def destroy
-    @phrase.examples.find(params[:id]).destroy
+    phrase.examples.find(params[:id]).destroy
     flash[:notice] = 'Example has been deleted'
     redirect_to phrase_path(@phrase)
   end
 
   def vote
-    @example = @phrase.examples.find(params[:example_id])
-      if params[:vote] == 'up'
-        @example.liked_by current_user
-        redirect_to phrase_path(@phrase)
-      else
-        @example.downvote_from current_user
-        redirect_to phrase_path(@phrase)
-      end
+    @example = phrase.examples.find(params[:example_id])
+    if params[:vote] == 'up'
+      @example.liked_by current_user
+    else
+      @example.downvote_from current_user
+    end
+    redirect_to phrase_path(@phrase)
     
     if @example.vote_registered?
       @example.calc_carma(params[:vote], current_user)
@@ -45,11 +43,11 @@ private
   end
 
   def phrase
-    @phrase = Phrase.friendly.find(params[:phrase_id])
+    @phrase ||= Phrase.friendly.find(params[:phrase_id])
   end
 
   def self_like
-    if @phrase.examples.find(params[:example_id]).user == current_user
+    if phrase.examples.find(params[:example_id]).user == current_user
       flash[:danger] = 'You cant like/dislike yourself example'
       redirect_to phrase_path(@phrase)
     end

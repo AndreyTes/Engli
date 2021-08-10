@@ -31,6 +31,7 @@ gem 'bootstrap-sass'
 gem 'sassc-rails'
 gem 'public_activity'
 gem 'coffee-rails'
+gem 'will_paginate-bootstrap'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
