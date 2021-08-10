@@ -3,13 +3,15 @@
   <td><%= example.user.username %></td>
   <td><%= date_formatter(example.created_at) %></td>
   <td>
-    <%= link_to phrase_example_vote_path(example.phrase, example , vote: 'up'), method: :post  do%>.
-      <div><span class= "glyphicon glyphicon-chevron-up upvote" aria-hidden="true""></span>
+    <%= link_to phrase_example_vote_path(example.phrase, example , vote: 'up'), method: :post, :class => "nav-link active" do %>
+      <div><span class= "glyphicon glyphicon-chevron-up upvote" aria-hidden="true"></span>
       </div>  
     <% end %>
+    <div class = "nav-link">
     <%= example.get_likes.size - example.get_dislikes.size %>
-    <%= link_to phrase_example_vote_path(example.phrase, example, vote: 'down'), method: :post  do%>.
-      <div><span class= "glyphicon glyphicon-chevron-down downvote" aria-hidden="true""></span>
+    </div>
+    <%= link_to phrase_example_vote_path(example.phrase, example, vote: 'down'), method: :post, :class => "nav-link active" do %>
+      <div><span class= "glyphicon glyphicon-chevron-down downvote" aria-hidden="true"></span>
       </div>  
     <% end %>
   </td>

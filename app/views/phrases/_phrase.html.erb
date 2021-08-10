@@ -14,12 +14,14 @@
     <%end%>
     <%end%>
     <td>
-    <%= link_to vote_phrase_path(phrase, vote: 'up'), method: :post  do%>.
+    <%= link_to vote_phrase_path(phrase, vote: 'up'), method: :post, :class => "nav-link active" do %>
       <div><span class= "glyphicon glyphicon-chevron-up upvote" aria-hidden="true"></span>
       </div>  
     <% end %>
+      <div class = "nav-link">
       <%= phrase.get_likes.size - phrase.get_dislikes.size %>
-    <%= link_to vote_phrase_path(phrase, vote: 'down'), method: :post  do%>. 
+      </div>    
+    <%= link_to vote_phrase_path(phrase, vote: 'down'), method: :post, :class => "nav-link active" do %> 
       <div><span class= "glyphicon glyphicon-chevron-down downvote" aria-hidden="true"></span>
       </div>  
     <% end %>
