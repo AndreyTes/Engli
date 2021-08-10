@@ -1,14 +1,14 @@
 <div class="container-fluid px-4">
   <div class="row gy-5">
     <div class="col-md-6 p-3">
-      <h4> Phrase: <%= @phrase.phrase %> </h4>
-      <h4> Translation: <%= @phrase.translation %> </h4>
-      <h4> Category: <%= @phrase.category %> </h4>
+      <h2> Phrase: <%= @phrase.phrase %> </h4>
+      <h2> Translation: <%= @phrase.translation %> </h4>
+      <h2> Category: <%= @phrase.category %> </h4>
     </div>
     <div class="col-md-6 p-3">
-      <h4> Author: <%= @phrase.user.username %> </h4>
-      <h4> Created At: <%= date_formatter(@phrase.created_at) %> </h4>
-      <h4> Updated At: <%= date_formatter(@phrase.updated_at) %> </h4>
+      <h2> Author: <%= @phrase.user.username %> </h4>
+      <h2> Created At: <%= date_formatter(@phrase.created_at) %> </h4>
+      <h2> Updated At: <%= date_formatter(@phrase.updated_at) %> </h4>
     </div>
   </div>
   <div class="row gy-5">

@@ -7,7 +7,7 @@ class Phrase < ApplicationRecord
   friendly_id :phrase, use: :slugged
   
   validates :phrase, presence: true, uniqueness: true
-  validates :translation, presence: true, uniqueness: true
+  validates :translation, :user_id, presence: true
   
   validates :category, inclusion: { in: %w(Actions Time Productivity Apologies),
     message: "%{value} is not a valid categoty" }

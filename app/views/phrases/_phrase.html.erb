@@ -14,13 +14,13 @@
     <%end%>
     <%end%>
     <td>
-    <%= link_to vote_phrase_path(phrase, vote: 'up'), method: :post  do%>
-      <div><span class= "glyphicon glyphicon-chevron-up upvote" aria-hidden="true""></span>
+    <%= link_to vote_phrase_path(phrase, vote: 'up'), method: :post  do%>.
+      <div><span class= "glyphicon glyphicon-chevron-up upvote" aria-hidden="true"></span>
       </div>  
     <% end %>
       <%= phrase.get_likes.size - phrase.get_dislikes.size %>
-    <%= link_to vote_phrase_path(phrase, vote: 'down'), method: :post  do%>
-      <div><span class= "glyphicon glyphicon-chevron-down downvote" aria-hidden="true""></span>
+    <%= link_to vote_phrase_path(phrase, vote: 'down'), method: :post  do%>. 
+      <div><span class= "glyphicon glyphicon-chevron-down downvote" aria-hidden="true"></span>
       </div>  
     <% end %>
     </td>    

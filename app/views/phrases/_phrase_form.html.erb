@@ -22,14 +22,16 @@
       </div>
       <div class = 'mb-3'>
         <%= f.label :category, { class: "form-label" } %>
-        <%= f.select :category, Phrase.categories.keys ,{},{ class: "form-control" } %>
+        <%= f.select :category, Phrase.categories.keys ,{}, { class: "form-control" } %>
       </div>
+      <% if @phrase.id.nil? %>
       <%= f.fields_for :examples do |example| %>
         <div class = 'mb-3'>
-          <%= example.label "Example", { class: "form-label" } %>
+          <%= example.label "example", { class: "form-label" } %>
           <%= example.text_field :example,{ class: "form-control" } %>
-          <%= example.hidden_field :user_id,{ class: "form-control" } %>
+          <%= example.hidden_field :user_id, :id => "hidden_field" %>
         </div>
+      <% end %> 
       <% end %>  
       <div>
       <%= f.submit "Submit", class: "btn btn-primary" %>

@@ -1,6 +1,6 @@
 class PhrasesController < ApplicationController
   before_action :phrase , only: [:show, :edit, :update, :destroy, :vote]
-  before_action :check_user, only: [:edit, :update, :destroy]
+  # before_action :check_user, only: [:edit, :update, :destroy]
   before_action :self_like, only: [:vote]
   
   def index
@@ -26,7 +26,7 @@ class PhrasesController < ApplicationController
         flash[:notice] = 'Phrase has been created'
         redirect_to :root_path
       else   
-        flash[:denger] = @phrase.errors.full_message.to_sentence
+        flash[:danger] = 'Phrase can`t be created'
         render :new 
       end 
   end
@@ -36,7 +36,7 @@ class PhrasesController < ApplicationController
       flash[:notice] = 'Phrase has been updated!'
       redirect_to user_path(@phrase.user)
     else
-      flash[:danger] = @phrase.errors.full_messages.to_sentence
+      flash[:danger] = 'Phrase can`t be updated'
       render :edit
     end
   end
@@ -76,13 +76,6 @@ class PhrasesController < ApplicationController
     @phrase = Phrase.friendly.find(params[:id])
   end
   
-  def check_user
-    unless @phrase.author? current_user
-      flash[:danger] = 'You dont author of phrase'
-      redirect_to(@phrase.user)
-    end
-  end
-
   def self_like
     if Phrase.friendly.find(params[:id]).user == current_user
       flash[:danger] = 'You cant like/dislike yourself phrase'

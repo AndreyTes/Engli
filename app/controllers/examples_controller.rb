@@ -1,6 +1,6 @@
 class ExamplesController < ApplicationController
   before_action :phrase
-  before_action :check_user, only: [:destroy]
+  # before_action :check_user, only: [:destroy]
   before_action :self_like, only: [:vote]
   
   def create
@@ -8,14 +8,14 @@ class ExamplesController < ApplicationController
     if @example.save
       flash[:notice] = 'Example has been created'
     else
-      flash[:danger] = @example.errors.full_messages.to_sentence
+      flash[:danger] = 'Example can`t be created'
     end
     redirect_to phrase_path(@phrase)
   end
   
   def destroy
     @phrase.examples.find(params[:id]).destroy
-    flash[:notice] = 'Example has been deleted!'
+    flash[:notice] = 'Example has been deleted'
     redirect_to phrase_path(@phrase)
   end
 
@@ -47,13 +47,6 @@ private
 
   def phrase
     @phrase = Phrase.friendly.find(params[:phrase_id])
-  end
-
-  def check_user
-    unless @phrase.author? current_user
-      flash[:danger] = 'You dont author of example'
-      redirect_to(@phrase.user)
-    end
   end
 
   def self_like
