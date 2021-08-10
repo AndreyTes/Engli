@@ -1,6 +1,5 @@
 class ExamplesController < ApplicationController
   before_action :phrase
-  # before_action :check_user, only: [:destroy]
   before_action :self_like, only: [:vote]
   
   def create

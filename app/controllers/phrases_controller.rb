@@ -1,6 +1,5 @@
 class PhrasesController < ApplicationController
   before_action :phrase , only: [:show, :edit, :update, :destroy, :vote]
-  # before_action :check_user, only: [:edit, :update, :destroy]
   before_action :self_like, only: [:vote]
   
   def index
