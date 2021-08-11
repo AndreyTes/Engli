@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.feature "Registration", type: :feature do
   let(:user) { create(:user) }
   before :each do
-    Capybara.current_driver = :selenium 
   end
 
   context "Users registration" do

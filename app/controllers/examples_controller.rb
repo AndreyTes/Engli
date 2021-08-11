@@ -12,7 +12,7 @@ class ExamplesController < ApplicationController
   end
   
   def destroy
-    phrase.examples.find(params[:id]).destroy
+    example.destroy
     flash[:notice] = 'Example has been deleted'
     redirect_to phrase_path(@phrase)
   end
@@ -46,11 +46,11 @@ private
   end
 
   def example
-    @example ||= phrase.examples.find(params[:example_id])
+    @example ||= phrase.examples.find(params[:id])
   end
 
   def self_like
-    if phrase.examples.find(params[:example_id]).user == current_user
+    if example.user == current_user
       flash[:danger] = 'You cant like/dislike yourself example'
       redirect_to phrase_path(@phrase)
     end

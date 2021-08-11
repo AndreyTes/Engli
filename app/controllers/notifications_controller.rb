@@ -1,11 +1,11 @@
 class NotificationsController < ApplicationController
  
   def index
-    @notifications = PublicActivity::Activity.order(created_at: "desc").where(recipient_id: current_user.id)
+    @notifications =  current_user.public_activities.order(created_at: "desc")
   end
 
   def read_all
-    PublicActivity::Activity.where(recipient_id: current_user.id).update_all(readed: true)
+    current_user.public_activities.update_all(readed: true)
     redirect_to notifications_path
   end
 end

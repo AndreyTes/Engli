@@ -5,7 +5,6 @@ RSpec.feature "PhraseShows", type: :feature do
   let(:phrase) { create(:phrase, user: user) }
   let(:example) {create(:example, phrase: phrase, user: user)}
   before :each do
-    Capybara.current_driver = :selenium 
     sign_in user
   end
 
@@ -123,12 +122,10 @@ RSpec.feature "PhraseShows", type: :feature do
   end 
 
   describe 'Carma test example' do
-    let(:phrase) { create(:phrase) }
-    let(:example) { create(:example, phrase: phrase) }
+    let!(:phrase) { create(:phrase) }
+    let!(:example) { create(:example, phrase: phrase) }
       context "User vote up example, carma check " do
         it "up"  do
-          phrase
-          example
           visit phrase_path(phrase)
           click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'up'))
           expect(page).to have_content('Thanks for your vote')
@@ -139,8 +136,6 @@ RSpec.feature "PhraseShows", type: :feature do
         end
 
         it "down"  do
-          phrase
-          example
           visit phrase_path(phrase)
           click_link(href: phrase_example_vote_path(example.phrase, example, vote: 'down'))
           expect(page).to have_content('Thanks for your vote')

@@ -14,4 +14,9 @@ validates :username, presence: true, uniqueness: true
 def has_new_notifications?
   PublicActivity::Activity.where(recipient_id: self.id, readed: false).any?
 end
+
+def public_activities
+  PublicActivity::Activity.where(recipient_id: self.id)
+end
+
 end         

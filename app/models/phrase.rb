@@ -1,4 +1,7 @@
 class Phrase < ApplicationRecord
+UPVOTE = 4 
+DOWNVOTE = -2
+
 include SharedMethods
 extend FriendlyId
 include PublicActivity::Model

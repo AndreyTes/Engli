@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.feature "UsersShows", type: :feature do
   let(:user) { create(:user) }
   before :each do
-    Capybara.current_driver = :selenium 
     sign_in user
   end
 

@@ -66,7 +66,7 @@ class PhrasesController < ApplicationController
   private
   
   def phrase_params
-    params.require(:phrase).permit(:phrase, :translation, :category, examples_attributes: [ :example, :user_id, :_destroy ])
+    params.require(:phrase).permit(:phrase, :translation, :category, examples_attributes: %i[example, user_id, _destroy])
   end  
   
   def phrase

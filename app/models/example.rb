@@ -1,4 +1,6 @@
 class Example < ApplicationRecord
+UPVOTE = 2 
+DOWNVOTE = -1
   
 include SharedMethods
 include PublicActivity::Model

@@ -4,7 +4,6 @@ RSpec.feature "UserShows", type: :feature do
   let(:user) { create(:user) }
   let(:phrase) { create(:phrase, user: user) }
   before :each do
-    Capybara.current_driver = :selenium 
     sign_in user
   end
 
