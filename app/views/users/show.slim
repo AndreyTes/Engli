@@ -1,0 +1,23 @@
+h1
+  | Username: 
+  = @user.username
+span
+  | USER CARMA: 
+  = @user.carma
+table.table
+  tr
+    th
+      | Id
+    th
+      | Phrase
+    th
+      | Translation
+    th
+      | Category
+    - if @user == current_user
+      th
+        | Actions
+    th
+      | Votes
+  - @phrases.each do |phrase|
+    = render phrase, render_in_phrase: false

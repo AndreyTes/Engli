@@ -47,16 +47,16 @@ class PhrasesController < ApplicationController
 
   def vote
     if params[:vote] == 'up'
-      @phrase.liked_by current_user
+      phrase.liked_by current_user
     else
-      @phrase.downvote_from current_user
+      phrase.downvote_from current_user
     end
     redirect_to(:root_path)
 
-    if @phrase.vote_registered?
-      @phrase.calc_carma(params[:vote], current_user)
+    if phrase.vote_registered?
+      phrase.calc_carma(params[:vote], current_user)
       message = params[:vote] == 'up' ? 'Liked your phrase' : 'Disliked your phrase'
-      @phrase.create_activity key: message, owner: current_user, recipient: @phrase.user
+      phrase.create_activity key: message, owner: current_user, recipient: phrase.user
       flash[:notice] = 'Thanks for your vote'
     else
       flash[:danger] = 'You already voted that post'

@@ -1,0 +1,19 @@
+.notification
+  br
+  = link_to notification.owner.username, user_path(notification.owner)
+  br
+  = notification.key
+  br
+  = notification.trackable_type
+  | : 
+  br
+  - if !notification.trackable.nil?
+    - if notification.trackable_type == 'Example'
+      = link_to "#{notification.trackable.example} ", phrase_path(notification.trackable.phrase)
+    - else
+      = link_to "#{notification.trackable.phrase} ", phrase_path(notification.trackable)
+  - else
+    span
+      | Was deleted
+  br
+  = date_formatter(notification.created_at)

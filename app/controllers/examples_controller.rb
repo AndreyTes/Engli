@@ -18,18 +18,17 @@ class ExamplesController < ApplicationController
   end
 
   def vote
-    @example = phrase.examples.find(params[:example_id])
     if params[:vote] == 'up'
-      @example.liked_by current_user
+      example.liked_by current_user
     else
-      @example.downvote_from current_user
+      example.downvote_from current_user
     end
     redirect_to phrase_path(@phrase)
     
-    if @example.vote_registered?
-      @example.calc_carma(params[:vote], current_user)
+    if example.vote_registered?
+      example.calc_carma(params[:vote], current_user)
       message = params[:vote] == 'up' ? 'Liked your example' : 'Disliked your example'
-      @example.create_activity key: message, owner: current_user, recipient: @example.user
+      example.create_activity key: message, owner: current_user, recipient: example.user
       flash[:notice] = 'Thanks for your vote'
     else
       flash[:danger] = 'You already voted that post'
@@ -44,6 +43,10 @@ private
 
   def phrase
     @phrase ||= Phrase.friendly.find(params[:phrase_id])
+  end
+
+  def example
+    @example ||= phrase.examples.find(params[:example_id])
   end
 
   def self_like
