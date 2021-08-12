@@ -18,5 +18,6 @@ module Engli
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     WillPaginate.per_page = 10
+    config.assets.initialize_on_precompile = false
   end
 end
