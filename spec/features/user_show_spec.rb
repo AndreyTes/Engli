@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.feature "UserShows", type: :feature do
   let(:user) { create(:user) }
-  let(:phrase) { create(:phrase, user: user) }
+  let!(:phrase) { create(:phrase, user: user) }
   before :each do
     sign_in user
   end
 
   context "update phrase" do
     it "success" do
-      phrase
       visit edit_phrase_path(phrase)
       expect(page).to have_content("Edit Phrase")
       fill_form(:phrase, { phrase: 'cxcxcxcxcx' })
@@ -28,7 +27,6 @@ RSpec.feature "UserShows", type: :feature do
 
   context "delete phrase" do
     it "success"  do
-      phrase
       visit user_path(user)
       message = accept_alert  do 
       click_link ( 'Delete' ) 
@@ -38,7 +36,6 @@ RSpec.feature "UserShows", type: :feature do
     end
    
     it "fail" do
-      phrase
       visit user_path(user)
       message = dismiss_confirm do 
       click_link ( 'Delete' ) 
@@ -49,10 +46,9 @@ RSpec.feature "UserShows", type: :feature do
   end 
 
   describe 'Carma test phrase' do
-    let(:phrase) { create(:phrase) }
+    let!(:phrase) { create(:phrase) }
       context "User vote up post, carma check " do
         it "up"  do
-          phrase
           visit phrases_path
           click_link(href: vote_phrase_path(phrase, vote: "up"))
           expect(page).to have_content('Thanks for your vote')
@@ -63,7 +59,6 @@ RSpec.feature "UserShows", type: :feature do
         end
 
         it "down"  do
-          phrase
           visit phrases_path
           click_link(href: vote_phrase_path(phrase, vote: "down"))
           expect(page).to have_content('Thanks for your vote')

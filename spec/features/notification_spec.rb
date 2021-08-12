@@ -30,7 +30,7 @@ RSpec.feature "Notifications", type: :feature do
       let!(:example) { create(:example, phrase: phrase) }
       it "up"  do
         visit phrase_path(phrase)
-        click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'up'))
+        click_link(href: vote_phrase_example_path(example.phrase, example , vote: 'up'))
         expect(page).to have_content('Thanks for your vote')
         sign_in example.user
         visit notifications_path
@@ -38,7 +38,7 @@ RSpec.feature "Notifications", type: :feature do
       end
       it "down"  do
         visit phrase_path(phrase)
-        click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'down'))
+        click_link(href: vote_phrase_example_path(example.phrase, example , vote: 'down'))
         expect(page).to have_content('Thanks for your vote')
         sign_in example.user
         click_link(href: read_all_notifications_path)
