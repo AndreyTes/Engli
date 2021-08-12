@@ -1,0 +1,29 @@
+= form_for(@phrase) do |f|
+  - if @phrase.errors.any?
+    #error explanation
+      h2
+        = pluralize(@phrase.errors.count, 'error')
+        |  prohibited this phrase from being saved:
+      ul
+        - @phrase.errors.full_messages.each do |message|
+          li
+            = message
+  .card
+    .card-body
+      .mb-3
+        = f.label :phrase, { class: "form-label"}
+        = f.text_field :phrase, { class: "form-control" }
+      .mb-3
+        = f.label :translation, { class: "form-label" }
+        = f.text_field :translation, { class: "form-control" }
+      .mb-3
+        = f.label :category, { class: "form-label" }
+        = f.select :category, Phrase.categories.keys ,{}, { class: "form-control" }
+      - if @phrase.id.nil?
+        = f.fields_for :examples do |example|
+          .mb-3
+            = example.label "example", { class: "form-label" }
+            = example.text_field :example,{ class: "form-control" }
+            = example.hidden_field :user_id, :id => "hidden_field"
+      div
+        = f.submit "Submit", class: "btn btn-primary"

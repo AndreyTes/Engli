@@ -1,0 +1,32 @@
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+* {
+  font-size: 18px;
+}
+.table {
+  th,
+  td {
+    text-align: left;
+  }
+  td {
+    vertical-align: middle !important;
+    font-size: 18px;
+  }
+  .upvote {
+    color: green;
+  }
+  .downvote {
+    color: red;
+  }
+}
+.navbar-brand {
+  min-width: 10%;
+  font-size: 18px !important;
+  margin-top: 25px !important;
+}
+.notification-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: red;
+}

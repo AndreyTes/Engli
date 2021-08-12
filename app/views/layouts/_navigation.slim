@@ -1,0 +1,31 @@
+header
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      a.navbar-brand[href="#"]
+        | E N G L I
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.me-auto.mb-2.mb-lg-0
+          - if signed_in?
+            li.nav-item
+              = link_to "Home", :root_path, {class: "nav-link active"}
+            li.nav-item
+              = link_to "Users", users_path, {class: "nav-link active"}
+            li.nav-item.dropdown
+              a#navbarDropdown.nav-link.dropdown-toggle[href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"]
+                | User
+              ul.dropdown-menu[aria-labelledby="navbarDropdown"]
+                li
+                  = link_to "View Profile", user_path(current_user), {class: "dropdown-item"}
+                li
+                  = link_to "Edit Profile", edit_user_registration_path, {class: "dropdown-item"}
+                li
+                  = link_to "Sign Out", destroy_user_session_path, method: :delete, :class => "dropdown-item"
+            li.notification-nav
+              - if current_user.has_new_notifications?
+                span.glyphicon.glyphicon-heart.navigation-notification-item
+              = link_to "Notifications", read_all_notifications_path, method: :put, :class => "nav-link active"
+          - else
+            li.nav-item
+              = link_to "Sign In", new_user_session_path, {class: "nav-link active"}
+            li.nav-item
+              = link_to "Sign Up", new_user_registration_path, {class: "nav-link active"}

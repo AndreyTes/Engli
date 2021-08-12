@@ -1,0 +1,21 @@
+h1
+  | Listing phrases
+table.table
+  tr
+    th
+      | Id
+    th
+      | Phrase
+    th
+      | Translation
+    th
+      | Category
+    th
+      | Authtor
+    th
+      | Votes
+  - @phrases.each do |phrase|
+    = render phrase, render_in_phrase: true
+= will_paginate @phrases, renderer: BootstrapPagination::Rails
+button
+  = link_to "Add new phrase", new_phrase_path, {class: "nav-link active"}
