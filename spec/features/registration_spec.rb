@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.feature "Registration", type: :feature do
   let(:user) { create(:user) }
-  before :each do
-  end
 
   context "Users registration" do
     it "success" do

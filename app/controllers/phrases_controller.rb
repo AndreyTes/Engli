@@ -1,8 +1,9 @@
 class PhrasesController < ApplicationController
   before_action :self_like, only: [:vote]
+  before_action :phrase , only: [:edit]
   
   def index
-    @phrases = Phrase.includes(:user).paginate(page: params[:page])
+    @phrases = Phrase.includes(:user).order(created_at: "desc").paginate(page: params[:page])
   end
     
   def new
@@ -66,7 +67,7 @@ class PhrasesController < ApplicationController
   private
   
   def phrase_params
-    params.require(:phrase).permit(:phrase, :translation, :category, examples_attributes: %i[example, user_id, _destroy])
+    params.require(:phrase).permit(:phrase, :translation, :category, examples_attributes: [:example, :user_id, :_destroy])
   end  
   
   def phrase

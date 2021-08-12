@@ -80,14 +80,14 @@ RSpec.feature "PhraseShows", type: :feature do
       phrase
       example
       visit phrase_path(phrase)
-      click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'up'))
+      click_link(href: vote_phrase_example_path(example.phrase, example , vote: 'up'))
       expect(page).to have_content('You cant like/dislike yourself example')
     end
     it "down fail" do
       phrase
       example
       visit phrase_path(phrase)
-      click_link(href: phrase_example_vote_path(example.phrase, example, vote: 'down'))
+      click_link(href: vote_phrase_example_path(example.phrase, example, vote: 'down'))
       expect(page).to have_content('You cant like/dislike yourself example')
      
     end    
@@ -99,7 +99,7 @@ RSpec.feature "PhraseShows", type: :feature do
       phrase
       example
       visit phrase_path(phrase)
-      click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'up'))
+      click_link(href: vote_phrase_example_path(example.phrase, example , vote: 'up'))
       expect(page).to have_content('Thanks for your vote')
     end
 
@@ -107,7 +107,7 @@ RSpec.feature "PhraseShows", type: :feature do
       phrase
       example
       visit phrase_path(phrase)
-      click_link(href: phrase_example_vote_path(example.phrase, example, vote: 'down'))
+      click_link(href: vote_phrase_example_path(example.phrase, example, vote: 'down'))
       expect(page).to have_content('Thanks for your vote')
     end
 
@@ -115,8 +115,8 @@ RSpec.feature "PhraseShows", type: :feature do
       phrase
       example
       visit phrase_path(phrase)
-      click_link(href: phrase_example_vote_path(example.phrase, example, vote: 'up'))
-      click_link(href: phrase_example_vote_path(example.phrase, example, vote: 'up'))
+      click_link(href: vote_phrase_example_path(example.phrase, example, vote: 'up'))
+      click_link(href: vote_phrase_example_path(example.phrase, example, vote: 'up'))
       expect(page).to have_content('You already voted that post')
     end
   end 
@@ -127,7 +127,7 @@ RSpec.feature "PhraseShows", type: :feature do
       context "User vote up example, carma check " do
         it "up"  do
           visit phrase_path(phrase)
-          click_link(href: phrase_example_vote_path(example.phrase, example , vote: 'up'))
+          click_link(href: vote_phrase_example_path(example.phrase, example , vote: 'up'))
           expect(page).to have_content('Thanks for your vote')
           visit user_path(user)
           expect(page).to have_content('USER CARMA: 1')
@@ -137,7 +137,7 @@ RSpec.feature "PhraseShows", type: :feature do
 
         it "down"  do
           visit phrase_path(phrase)
-          click_link(href: phrase_example_vote_path(example.phrase, example, vote: 'down'))
+          click_link(href: vote_phrase_example_path(example.phrase, example, vote: 'down'))
           expect(page).to have_content('Thanks for your vote')
           visit user_path(user)
           expect(page).to have_content('USER CARMA: 1')
