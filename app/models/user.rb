@@ -6,8 +6,8 @@ tracked
 devise :database_authenticatable, :registerable,
        :recoverable, :rememberable, :validatable
 
-has_many :phrases
-has_many :examples
+has_many :phrases, dependent: :destroy
+has_many :examples, dependent: :destroy
 
 validates :username, presence: true, uniqueness: true 
   
